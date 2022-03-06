@@ -1,0 +1,11 @@
+---
+- hosts: web
+  become: true
+  gather_facts: false
+
+  tasks:
+
+  - name: Copy website files to web servers
+    ansible.builtin.copy:
+      src: /home/justincase/Downloads/duckfarmstatic/
+      dest: /var/www/html/

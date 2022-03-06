@@ -1,0 +1,55 @@
+---
+- name: Setup LAMP Stack
+  hosts: linux
+  become: true
+  gather_facts: false
+
+  tasks:
+
+  - name: Create User "Ryan"
+    become: yes
+    ansible.builtin.user:
+      name: Ryan
+
+- name: Install/Setup Apache
+  hosts: web
+  become: true
+  gather_facts: false
+
+  tasks:
+
+  - name: Install Apache
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+      update_cache: yes
+
+  - name: Start & Auto-Start Apache
+    ansible.builtin.service:
+      name: apache2
+      state: started
+      enabled: yes
+
+  - name: Open Firewall for Website
+    community.general.ufw:
+      rule: allow
+      port: '443'
+      proto: tcp
+    notify:
+      - reload-firewall
+  handlers:
+    - name: reload-firewall
+      community.general.ufw:
+        state: reloaded
+    
+- name: Install/Setup MariaDB
+  hosts: db
+  become: true
+  gather_facts: false
+
+  tasks:
+
+  - name: Install MariaDB
+    ansible.builtin.apt: name=mariadb-server state=present update_cache=yes
+  - name: Start & Auto-Start MariaDB
+    ansible.builtin.service: name=mariadb state=started enabled=yes

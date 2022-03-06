@@ -1,0 +1,28 @@
+---
+- hosts: WindowsServers
+  gather_facts: false
+
+  tasks:
+
+  - name: Create Local Windows User
+    ansible.windows.win_user:
+      name: Ryan
+      password: Pokemon
+      state: present
+      groups:
+        - Users
+  
+  - name: Install IIS Web Server on Windows
+    ansible.windows.win_feature:
+      name: Web-Server
+      state: present
+
+  - name: Download 7-Zip
+    ansible.windows.win_get_url:
+      url: https://www.7-zip.org/a/7z1701-x64.msi
+      dest: C:\temp\7z.msi
+
+  - name: Install 7-Zip
+    ansible.windows.win_package:
+      path: C:\temp\7z.msi
+      state: present

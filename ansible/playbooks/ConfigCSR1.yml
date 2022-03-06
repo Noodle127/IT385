@@ -1,0 +1,42 @@
+---
+- hosts: CSR1
+  gather_facts: false
+  connection: local
+  tasks:
+  - name: Tasks running outside an interface
+    ios_command:
+      commands:
+        - conf t
+        - hostname router1
+        - line vty 0 4
+        - exec-timeout 5 0
+
+  - name: Configure G2
+    ios_config:
+      lines:
+      - no shutdown
+      - ip address 192.168.51.1 255.255.255.0
+      - ip route 192.168.0.12 255.255.255.0 192.168.0.11
+      - no ip domain-lookup
+      - security passwords min-length 10
+      - service password-encryption
+      - login block-for 180 attempts 4 within 120
+      parents: interface GigabitEthernet2 
+
+  - name: Login Banner
+    cisco.ios.ios_banner:
+      banner: login
+      text: Warning. Unauthorized access is prohibited.
+      state: present
+
+  - name: Configure G3
+    ios_config:
+      lines:
+      - no shutdown
+      - ip address 192.168.52.1 255.255.255.0
+      - ip route 192.168.0.11 255.255.255.0 192.168.0.12
+      - no ip domain-lookup
+      - security passwords min-length 10
+      - service password-encryption
+      - login block-for 180 attempts 4 within 120
+      parents: interface GigabitEthernet3 

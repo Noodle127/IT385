@@ -1,0 +1,8 @@
+---
+- hosts: web1
+  gather_facts: false
+  tasks:
+  - name: Test copy file to Web1
+    ansible.builtin.copy:
+      src: /home/justincase/IT385/ansible/inventory.txt
+      dest: /home/justincase/inventory.txt

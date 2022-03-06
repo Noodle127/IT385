@@ -1,0 +1,11 @@
+---
+- hosts: linux
+  gather_facts: false
+  become: true
+
+  tasks:
+
+  - name: Copy Hosts file to all linux VMs
+    ansible.builtin.copy:
+      src: /etc/hosts
+      dest: /etc/hosts

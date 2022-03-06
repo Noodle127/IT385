@@ -1,0 +1,12 @@
+---
+- hosts: CSR1
+  gather_facts: false
+  connection: local
+  tasks:
+  - name: Gather Running Config 
+    ios_command:
+      commands: sh run
+    register: sh_run
+  - name: Print out config
+    ansible.builtin.debug:
+      var: sh_run
