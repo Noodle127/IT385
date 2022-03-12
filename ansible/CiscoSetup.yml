@@ -1,10 +1,9 @@
 ---
 - hosts: router
-  gather_facts: false
   connection: network_cli
-
+  gather_facts: false
   roles:
-    - Running-Config
+    - runningconfig
     - Default-route
     - ntp
     - snmp

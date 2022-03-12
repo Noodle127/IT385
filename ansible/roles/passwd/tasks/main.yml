@@ -1,0 +1,6 @@
+- name: Configure Console Password
+  cisco.ios.ios_config:
+    lines:
+      - line console 0
+      - password GRCCon
+      - login

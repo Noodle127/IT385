@@ -1,0 +1,102 @@
+Building configuration...
+
+Current configuration : 1185 bytes
+!
+! Last configuration change at 21:25:22 UTC Sat Mar 12 2022 by cisco
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname IT385-CSR2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+
+
+ip domain name ccna.local
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+!
+license udi pid CSR1000V sn 9BBEMQDQ0G3
+!
+username cisco privilege 15 password 0 cisco
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet1
+ description Internal Network
+ ip address 192.168.0.12 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+snmp-server community GRCRocks! RO
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+ntp source GigabitEthernet1
+ntp server 192.168.0.250
+!
+end

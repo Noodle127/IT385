@@ -1,0 +1,4 @@
+- name: Configure SNMPv2 Community String
+  ios_config:
+    lines:
+      - snmp-server community GRCRocks! RO
