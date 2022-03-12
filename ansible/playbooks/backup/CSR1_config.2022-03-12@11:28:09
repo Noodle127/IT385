@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1141 bytes
+Current configuration : 1097 bytes
 !
-! Last configuration change at 19:47:59 UTC Sat Mar 12 2022
+! Last configuration change at 19:27:40 UTC Sat Mar 12 2022 by cisco
 !
 version 15.4
 service timestamps debug datetime msec
@@ -95,7 +95,5 @@ line vty 5 15
  login local
  transport input ssh
 !
-ntp source GigabitEthernet1
-ntp server 192.168.0.250
 !
 end

@@ -1,15 +1,36 @@
 ---
 - hosts: router
   gather_facts: false
+  connection: network_cli
+
+  roles:
+    - Running-Config
+    - Default-route
+
 
   tasks: 
 
   - name: Get running-config
-      ios_config: 
-        backup: yes
-      register: backup_config
+    ios_config: 
+      backup: yes
+      save_when: modified
+    register: backup_config
 
-    - name: Store running-config
-      copy:
-        src: "{{ backup_config.backup_path }}"
-        dest: "/home/justincase/IT385/{{ inventory_hostname }}"
+  - name: Store running-config
+    copy:
+      src: "{{ backup_config.backup_path }}"
+      dest: "/home/justincase/IT385/{{ inventory_hostname }}"
+
+  - name: Configure Default Route
+    net_static_route:
+      prefix: 192.168.0.250
+      mask: 255.255.255.0
+      next_hop: 10.0.0.1
+
+  - name: Configure NTP Source
+    ios_ntp:
+      server: 192.168.0.250
+      source_int: GigabitEthernet1
+      state: present
+
+    

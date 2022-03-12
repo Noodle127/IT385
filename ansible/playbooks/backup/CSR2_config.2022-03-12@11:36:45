@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1141 bytes
+Current configuration : 1097 bytes
 !
-! Last configuration change at 19:47:59 UTC Sat Mar 12 2022
+! Last configuration change at 19:28:24 UTC Sat Mar 12 2022 by cisco
 !
 version 15.4
 service timestamps debug datetime msec
@@ -10,7 +10,7 @@ service timestamps log datetime msec
 no platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname IT385-CSR1
+hostname IT385-CSR2
 !
 boot-start-marker
 boot-end-marker
@@ -42,7 +42,7 @@ subscriber templating
 multilink bundle-name authenticated
 !
 !
-license udi pid CSR1000V sn 95FBB0ULTAV
+license udi pid CSR1000V sn 9BBEMQDQ0G3
 !
 username cisco privilege 15 password 0 cisco
 !
@@ -57,7 +57,7 @@ redundancy
 !
 interface GigabitEthernet1
  description Internal Network
- ip address 192.168.0.11 255.255.255.0
+ ip address 192.168.0.12 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet2
@@ -95,7 +95,5 @@ line vty 5 15
  login local
  transport input ssh
 !
-ntp source GigabitEthernet1
-ntp server 192.168.0.250
 !
 end
