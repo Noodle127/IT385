@@ -1,0 +1,5 @@
+- name: Configure Default Route
+    net_static_route:
+      prefix: 192.168.0.250
+      mask: 255.255.255.0
+      next_hop: 10.0.0.1
