@@ -1,0 +1,15 @@
+---
+- hosts: router
+  gather_facts: false
+
+  tasks: 
+
+  - name: Get running-config
+      ios_config: 
+        backup: yes
+      register: backup_config
+
+    - name: Store running-config
+      copy:
+        src: "{{ backup_config.backup_path }}"
+        dest: "/home/justincase/IT385/{{ inventory_hostname }}"
